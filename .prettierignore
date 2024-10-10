@@ -1,1 +1,3 @@
 *.ejs
+./build
+mockServiceWorker.js
