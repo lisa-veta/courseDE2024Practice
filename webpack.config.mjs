@@ -1,16 +1,38 @@
-import path from "path"
-import { fileURLToPath } from "url"
-import HtmlWebpackPlugin from "html-webpack-plugin"
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import webpack from "webpack"
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import path from "path";
+import { fileURLToPath } from "url";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import webpack from "webpack";
+import fs from "fs";
+import CopyPlugin from "copy-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const baseDir = path.resolve(__dirname, "./src")
-const buildDir = path.resolve(__dirname, "./build")
-const publicDir = path.resolve(__dirname, "./public")
-const pagesDir = path.resolve(__dirname, "./src/pages")
-const appDir = path.resolve(__dirname, "./src/app")
+const baseDir = path.resolve(__dirname, "./src");
+const buildDir = path.resolve(__dirname, "./build");
+const publicDir = path.resolve(__dirname, "./public");
+const pagesDir = path.resolve(__dirname, "./src/pages");
+const appDir = path.resolve(__dirname, "./src/app");
+
+const folders = ["fonts", "assets"];
+const copyFolders = (folders) => {
+	return folders.map((folder) => {
+		const fromPath = path.resolve(publicDir, `./${folder}`);
+		const toPath = buildDir;
+		if (!fs.existsSync(fromPath)) {
+			console.warn(`Source folder: ${fromPath} does not exist`);
+		}
+		return {
+			from: fromPath,
+			to: toPath,
+			noErrorOnMissing: true,
+		};
+	});
+};
+
+
 export default async (env, { mode }) => {
 	const isDev = mode === "development"
 	return {
@@ -63,8 +85,11 @@ export default async (env, { mode }) => {
 				filename: "styles/[name][hash].css",
 			}),
 			new webpack.DefinePlugin({
-				"process.env": {}
-			})
+				"process.env.API_URL": JSON.stringify(env.API_URL),
+			}),
+			new CopyPlugin({
+				patterns: copyFolders(folders),
+			}),
 		],
 
 		resolve: {
@@ -78,6 +103,14 @@ export default async (env, { mode }) => {
 			},
 			extensions: [".js", ".pcss"],
 		},
+		optimization: {
+			minimize: !isDev, //В режиме продакшена
+			minimizer: [
+				new CssMinimizerPlugin(), //Минификация CSS
+				new TerserPlugin(),
+			],
+		},
 		devtool: isDev ? "source-map" : false,
+
 	}
 }

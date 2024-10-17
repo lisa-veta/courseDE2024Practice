@@ -116,20 +116,20 @@ self.addEventListener('fetch', function (event) {
 })
 
 async function handleRequest(event, requestId) {
-  const client = await resolveMainClient(event)
-  const response = await getResponse(event, client, requestId)
+  const client = await resolveMainClient(event);
+  const response = await getResponse(event, client, requestId);
 
   // Send back the response clone for the "response:*" life-cycle events.
   // Ensure MSW is active and ready to handle the message, otherwise
   // this message will pend indefinitely.
   if (client && activeClientIds.has(client.id)) {
-    ;(async function () {
-      const responseClone = response.clone()
+    (async function () {
+      const responseClone = response.clone();
 
       sendToClient(
         client,
         {
-          type: 'RESPONSE',
+          type: "RESPONSE",
           payload: {
             requestId,
             isMockedResponse: IS_MOCKED_RESPONSE in response,
@@ -140,12 +140,12 @@ async function handleRequest(event, requestId) {
             headers: Object.fromEntries(responseClone.headers.entries()),
           },
         },
-        [responseClone.body],
-      )
-    })()
+        [responseClone.body]
+      );
+    })();
   }
 
-  return response
+  return response;
 }
 
 // Resolve the main client for the given event.

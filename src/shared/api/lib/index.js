@@ -20,9 +20,9 @@ function getResponseMock({ type, resp, data, endpoint }) {
         const body = !!resp
             ? resp
             : {
-                isSuccess: true,
-                data,
-            };
+                  isSuccess: true,
+                  data,
+              };
         return HttpResponse.json(body);
     };
     switch (method) {
