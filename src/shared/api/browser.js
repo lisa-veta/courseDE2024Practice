@@ -2,7 +2,6 @@ import { setupWorker } from "msw/browser";
 import { handlers } from "./index.js";
 
 export const worker = setupWorker(...handlers);
-
 /**
  * Получает результат запуска MSW
  * @return {Promise.<void|ServiceWorkerRegistration>}
@@ -17,3 +16,4 @@ export async function getMocks() {
             return Promise.resolve();
     }
 }
+

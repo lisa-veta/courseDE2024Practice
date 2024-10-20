@@ -1,4 +1,5 @@
 import { Button } from "#shared/ui/Button/index.js";
+import { Switch } from "#shared/ui/Switch/index";
 
 const IndexPage = () => `
   <!DOCTYPE html>
@@ -15,6 +16,7 @@ const IndexPage = () => `
       <main>
         <p>Hello world!</p>
         ${Button({ text: "HI!" })}
+        ${Switch({})}
       </main>
     </body>
   </html>

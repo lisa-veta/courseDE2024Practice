@@ -1,16 +1,17 @@
-import path from "path";
-import { fileURLToPath } from "url";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import webpack from "webpack";
-import fs from "fs";
 import CopyPlugin from "copy-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import TerserPlugin from "terser-webpack-plugin";
+import webpack from "webpack";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseDir = path.resolve(__dirname, "./src");
+// const baseDir = path.resolve(__dirname, "./src");
 const buildDir = path.resolve(__dirname, "./build");
 const publicDir = path.resolve(__dirname, "./public");
 const pagesDir = path.resolve(__dirname, "./src/pages");
@@ -22,7 +23,7 @@ const copyFolders = (folders) => {
 		const fromPath = path.resolve(publicDir, `./${folder}`);
 		const toPath = path.resolve(buildDir, `./${folder}`);
 		if (!fs.existsSync(fromPath)) {
-			console.warn(`Source folder: ${fromPath} does not exist`);
+			console.debug(`Source folder: ${fromPath} does not exist`);
 		}
 		return {
 			from: fromPath,
@@ -32,9 +33,11 @@ const copyFolders = (folders) => {
 	});
 };
 
-
+/**
+ *
+ */
 export default async (env, { mode }) => {
-	const isDev = mode === "development"
+	const isDev = mode === "development";
 	return {
 		mode,
 		entry: path.join(appDir, "app.js"),
@@ -77,6 +80,7 @@ export default async (env, { mode }) => {
 			],
 		},
 		plugins: [
+			// формируем html при билде
 			new HtmlWebpackPlugin({
 				filename: "index.html",
 				template: path.join(pagesDir, "index.js"),
@@ -90,16 +94,18 @@ export default async (env, { mode }) => {
 			new CopyPlugin({
 				patterns: copyFolders(folders),
 			}),
+			new webpack.IgnorePlugin({
+				resourceRegExp: /mockServiceWorker\.js$/, //игнорируем файл
+			}),
 		],
-
 		resolve: {
 			alias: {
 				"#shared": path.resolve(__dirname, "src/shared"),
 				"#entities": path.resolve(__dirname, "src/entities"),
-				"#pages": path.resolve(__dirname, "src/pages"),
 				"#features": path.resolve(__dirname, "src/features"),
-				"#app": path.resolve(__dirname, "src/app"),
+				"#pages": path.resolve(__dirname, "src/pages"),
 				"#widgets": path.resolve(__dirname, "src/widgets"),
+				"#app": path.resolve(__dirname, "src/app"),
 			},
 			extensions: [".js", ".pcss"],
 		},
@@ -111,6 +117,5 @@ export default async (env, { mode }) => {
 			],
 		},
 		devtool: isDev ? "source-map" : false,
-
-	}
-}
+	};
+};

@@ -16,15 +16,17 @@ function getResponseMock({ type, resp, data, endpoint }) {
 
     const url = `${API_URL}/${endpoint}`;
     const method = type || "GET";
+    /* eslint-disable @stylistic/js/indent */
     const resolver = () => {
         const body = !!resp
-            ? resp
-            : {
-                  isSuccess: true,
-                  data,
-              };
+          ? resp
+          : {
+              isSuccess: true,
+              data,
+          };
         return HttpResponse.json(body);
     };
+    /* eslint-enable @stylistic/js/indent */
     switch (method) {
         case HttpMethods.POST:
             return http.post(url, resolver);
