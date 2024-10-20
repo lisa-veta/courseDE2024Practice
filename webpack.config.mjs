@@ -20,7 +20,7 @@ const folders = ["fonts", "assets"];
 const copyFolders = (folders) => {
 	return folders.map((folder) => {
 		const fromPath = path.resolve(publicDir, `./${folder}`);
-		const toPath = buildDir;
+		const toPath = path.resolve(buildDir, `./${folder}`);
 		if (!fs.existsSync(fromPath)) {
 			console.warn(`Source folder: ${fromPath} does not exist`);
 		}
