@@ -1,7 +1,53 @@
 .btn {
-    background-color: rgb(43, 12, 214);
+    --btnWidth: max-content;
+    --btnHeight: auto;
+    --btnBgColor: transparent;
+    --btnHoverColor: var(--colorGrayLight);
+    --btnFontSize: 2rem;
+    --btnLineHeight: 121%;
+    --btnGapIcon: 1.25rem;
+    --btnBorder: none;
+    --btnPdBlock: 1.5rem;
+    --btnPdInline: 2rem;
+    --btnCursor: pointer;
+    --btnBorderRadius: 1rem;
+    --btnIconColor: var(--colorBlack);
+    --btnColor: var(--colorBlack);
 
-    &__text {
-        color: rgb(250, 110, 16);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--btnGapIcon);
+
+    font-family: Inter, serif;
+    width: var(--btnWidth);
+    height: var(--btnHeight);
+    border: var(--btnBorder);
+    border-radius: var(--btnBorderRadius);
+    background-color: var(--btnBgColor);;
+    padding: var(--btnPdBlock) var(--btnPdInline);
+    color: var(--btnColor);
+    cursor: var(--btnCursor);
+    font-size: var(--btnFontSize);
+
+    &:hover {
+        background-color: var(--btnHoverColor);
     }
+
+    &__icon {
+        width: 2rem;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        color: var(--btnIconColor);
+    }
+
+    &--isRedIcon{
+        --btnIconColor: var(--colorRed);
+    }
+
+    &--isGreenIcon{
+        --btnIconColor: var(--colorGreenLight)
+    }
+
 }

@@ -25,18 +25,18 @@ export class ApiClient {
         if (contentType.includes("application/json")) {
             responseData = await response.json();
         } else if (
-          contentType.includes("text/plain") ||
-          contentType.includes("text/html")
+            contentType.includes("text/plain") ||
+            contentType.includes("text/html")
         ) {
             responseData = await response.text();
         } else if (
-          contentType.includes("application/xml") ||
-          contentType.includes("text/xml")
+      contentType.includes("application/xml") ||
+            contentType.includes("text/xml")
         ) {
             responseData = await response.text(); // Можно использовать XMLParser для парсинга
         } else if (
-          contentType.includes("image/") ||
-          contentType.includes("application/octet-stream")
+            contentType.includes("image/") ||
+            contentType.includes("application/octet-stream")
         ) {
             responseData = await response.blob(); // Для изображений или бинарных данных
         } else {
@@ -47,11 +47,11 @@ export class ApiClient {
     }
 
     async request(
-      endpoint,
-      method = "GET",
-      body = null,
-      headers = {},
-      contentType = "application/json"
+        endpoint,
+    method = "GET",
+    body = null,
+    headers = {},
+    contentType = "application/json"
     ) {
         //Формируем полный URL запроса
         const url = `${this.baseURL}/${endpoint}`;
@@ -88,7 +88,9 @@ export class ApiClient {
 
     get(endpoint, params = {}, headers = {}, contentType = "application/json") {
         const queryString = this.serializeParams(params);
-        const urlWithParams = queryString ? `${endpoint}?${queryString}` : endpoint;
+        const urlWithParams = queryString
+      ? `${endpoint}?${queryString}`
+      : endpoint;
         return this.request(urlWithParams, "GET", null, headers, contentType);
     }
 
