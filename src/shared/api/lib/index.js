@@ -10,29 +10,29 @@ import { API_URL } from "../../config/constants.js";
  * @return {HttpHandler}
  */
 function getResponseMock({ type, resp, data, endpoint }) {
-    if (!endpoint) {
-        throw new Error("Missing endpoint for getResponseMock");
-    }
+  if (!endpoint) {
+    throw new Error("Missing endpoint for getResponseMock");
+  }
 
-    const url = `${API_URL}/${endpoint}`;
-    const method = type || "GET";
-    /* eslint-disable @stylistic/js/indent */
-    const resolver = () => {
-        const body = !!resp
-          ? resp
-          : {
-              isSuccess: true,
-              data,
-          };
-        return HttpResponse.json(body);
-    };
-    /* eslint-enable @stylistic/js/indent */
-    switch (method) {
-        case HttpMethods.POST:
-            return http.post(url, resolver);
-        default:
-            return http.get(url, resolver);
-    }
+  const url = `${API_URL}/${endpoint}`;
+  const method = type || "GET";
+  /* eslint-disable @stylistic/js/indent */
+  const resolver = () => {
+    const body = !!resp
+      ? resp
+      : {
+          isSuccess: true,
+          data,
+        };
+    return HttpResponse.json(body);
+  };
+  /* eslint-enable @stylistic/js/indent */
+  switch (method) {
+    case HttpMethods.POST:
+      return http.post(url, resolver);
+    default:
+      return http.get(url, resolver);
+  }
 }
 
 export { getResponseMock };
