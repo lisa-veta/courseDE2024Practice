@@ -41,13 +41,14 @@ export class MapApp {
     this.filterSubscription?.();
   }
 
-  async addMarkers() {
+  async getMarkers() {
     try {
-      const resp = await this.apiClient.get(API_ENDPOINTS.markers.detail);
+      const resp = await this.apiClient.get(API_ENDPOINTS.markers.list);
       console.debug("markers!!!:", resp.data.markers);
       this.storeService.updateStore("addMarkers", resp.data.markers);
     } catch (error) {
       console.error("Ошибка при получении меток:", error);
     }
   }
+
 }
