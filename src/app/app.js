@@ -33,8 +33,9 @@ Promise.all([initMSW(), domReady()]).then(() => {
   new ChoiceElemModel();
   window.App.ChoiceElemModel = ChoiceElemModel;
   const mapApp = new MapApp(storeService, apiClient);
-  mapApp.addMarkers();
-  // apiClient
-  //   .get(API_ENDPOINTS.marks.list)
-  //   .then((res) => console.debug("!!!!!!!!!!", res));
+  mapApp.getMarkers();
+  //mapApp.getMarkerDetail(13);
+  apiClient
+    .get(API_ENDPOINTS.markers.detail)
+    .then((res) => console.debug("!!!!!!!!!!", res));
 });
