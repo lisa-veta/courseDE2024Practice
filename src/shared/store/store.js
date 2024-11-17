@@ -16,25 +16,29 @@ export const createStore = (storageName) => {
           setMarkers: (markers) => set({ markers }),
           addMarker: (marker) => {
             set((state) => {
-              // Проверка, есть ли уже маркер с таким ID
-              const exists = state.markers.some((m) => m?.id === marker.id);
-              if (exists) {
-                console.warn(`Marker with ID ${marker.id} already exists.`);
-                return state; // Не изменяем состояние, если маркер с таким ID уже существует
+              const updatedMarkers = state.markers.map((m) =>
+                m.id === marker.id ? { ...m, ...marker } : m
+              );
+              if (updatedMarkers.every((m) => m.id !== marker.id)) {
+                updatedMarkers.push(marker);
               }
-              return {
-                markers: [...state.markers, marker], // Добавляем новый маркер
-              };
+              return { markers: updatedMarkers };
             });
           },
           addMarkers: (newMarkers) => {
             set((state) => {
               const updatedMarkers = [...state.markers];
               newMarkers.forEach((marker) => {
-                if (!updatedMarkers.some((m) => m.id === marker.id)) {
-                  updatedMarkers.push(marker);
+                const markerIndex = updatedMarkers.findIndex(
+                  (m) => m.id === marker.id
+                );
+                if (markerIndex !== -1) {
+                  updatedMarkers[markerIndex] = {
+                    ...updatedMarkers[markerIndex],
+                    ...marker,
+                  };
                 } else {
-                  console.warn(`Marker with ID ${marker.id} already exists.`);
+                  updatedMarkers.push(marker);
                 }
               });
               return { markers: updatedMarkers };
