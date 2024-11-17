@@ -29,12 +29,13 @@ function domReady() {
 Promise.all([initMSW(), domReady()]).then(() => {
   window.App = {};
   const apiClient = new ApiClient(API_URL);
-  const storeService = new StoreService("store-map-markers");
+  // const storeService = new StoreService("store-map-markers");
   new ChoiceElemModel();
   window.App.ChoiceElemModel = ChoiceElemModel;
-  const mapApp = new MapApp(storeService, apiClient);
-  mapApp.getMarkers();
+  // const mapApp = new MapApp(storeService, apiClient);
+  // mapApp.getMarkers();
   //mapApp.getMarkerDetail(13);
+  new MapApp(new StoreService("mapAppStore"), new ApiClient(API_URL));
   apiClient
     .get(API_ENDPOINTS.markers.detail)
     .then((res) => console.debug("!!!!!!!!!!", res));

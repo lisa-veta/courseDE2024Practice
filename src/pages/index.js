@@ -1,6 +1,14 @@
 import { Button } from "#shared/ui/Button/index.js";
 import { ChoiceElem } from "#shared/ui/ChoiceElem/index";
-import { CheckIcon, CancelIcon, BarIcon, CinemaIcon, NightclubIcon, RestaurantIcon, TheaterIcon } from "#shared/ui/icons/index.js";
+import {
+  CheckIcon,
+  CancelIcon,
+  BarIcon,
+  CinemaIcon,
+  NightclubIcon,
+  RestaurantIcon,
+  TheaterIcon,
+} from "#shared/ui/icons/index.js";
 import { Switch } from "#shared/ui/Switch/index";
 
 /**
@@ -90,7 +98,7 @@ const IndexPage = () => `
           },
         })}
         </div>
-
+      <div id="map1" class="yandexMap" style="width: 800px; aspect-ratio: 1 / 1"></div>
       </main>
     </body>
   </html>
