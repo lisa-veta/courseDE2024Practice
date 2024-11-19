@@ -1,7 +1,10 @@
 .yandexMap {
     --yandexMapWidthPlacemark: 4.625rem;
+    --yandexMapBallonLayoutWidth: 37.5rem;
+    --yandexMapBallonLayoutMinHeight: 10rem;
+    --yandexMapBallonContentBgColor: var(--colorWhite);
 
-    &__customPlacemark {
+    &__mark {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -11,5 +14,78 @@
         aspect-ratio: 1 / 1;
         transition: all 0.3s;
         box-shadow: var(--boxShadowDefault);
+    }
+
+    &__ballonLayout {
+        position: relative;
+        width: var(--yandexMapBallonLayoutWidth);
+        height: auto;
+        background-color: var(--yandexMapBallonContentBgColor);
+        translate: calc(-50% + var(--yandexMapWidthPlacemark) / 2) calc(-100% - 2rem);
+        border-radius: 2rem;
+    }
+
+    &__ballonContent {
+        background-color: var(--yandexMapBallonContentBgColor);
+        width: var(--yandexMapBallonLayoutWidth);
+        height: auto;
+        font-size: 1.75rem;
+        border-radius: 2rem;
+        padding: 2.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__title {
+        font-size: 3rem;
+        font-weight: bold;
+    }
+
+    &__typeMark {
+        display: flex;
+        flex-direction: row;
+        gap: 1.25rem;
+    }
+
+    &__typeMarkText {
+
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__buttons button {
+        font-size: 2.125rem;
+        cursor: pointer;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &__button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        border: none;
+        gap: 1rem;
+    }
+
+    &__button:hover {
+        color: var(--colorGray);
+    }
+    &_button:hover svg {
+        fill: var(--colorGray);
     }
 }

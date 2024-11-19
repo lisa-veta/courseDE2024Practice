@@ -1,6 +1,6 @@
 import { API_ENDPOINTS } from "#shared/config/constants.js";
+import { yandexMapCustomEventNames } from "#shared/ui/Map/config/constants";
 import { YandexMap } from "#shared/ui/Map/model/index.js";
-
 /**
  *
  */
@@ -14,7 +14,7 @@ export class MapApp {
       apiUrl: "https://api-maps.yandex.ru/2.1/?apikey",
       apiKey: "ebf7d794-539b-460a-b8d5-68c3b9f6df05",
       lang: "ru_RU",
-      center: [43.5, 43.9],
+      center: [54.5, 57.9],
       zoom: 10,
     });
 
@@ -27,6 +27,7 @@ export class MapApp {
         //мб рендерить тут тоже
       })
       .catch((e) => console.error(e));
+    this.#bindYandexMapEvents();
     this.subscribeForStoreService();
     console.debug(
       "Тут будем реализовывать логику нашего виджета, вот готовый стор сервис ->",
@@ -36,6 +37,7 @@ export class MapApp {
 
   handleMarkersChanged() {
     console.debug("markers changed", this.storeService.getMarkers());
+    this.yandexMap.renderMarks(this.storeService.getMarkers());
   }
 
   handleFiltersChanged() {
@@ -57,24 +59,29 @@ export class MapApp {
   }
 
   async getMarkers() {
+    return this.apiClient
+      .get(API_ENDPOINTS.markers.list)
+      .then((res) => res?.data?.markers);
+  }
+
+  async handleMarkerClick(e) {
+    const {
+      detail: { id, mark },
+    } = e;
     try {
-      const resp = await this.apiClient.get(API_ENDPOINTS.markers.list);
-      console.debug("markers!!!:", resp.data.markers);
-      //this.storeService.updateStore("addMarkers", resp.data.markers);
-      return resp.data.markers;
-    } catch (error) {
-      console.error("Ошибка при получении меток:", error);
+      const res = await this.apiClient.get(API_ENDPOINTS.markers.detail, {
+        id: id,
+      });
+      const layout = this.yandexMap.getLayoutContentForBallon(res.data[id]);
+      this.yandexMap.renderCustomBallon(id, mark, layout);
+    } catch (e) {
+      console.error(e);
     }
   }
 
-  // async getMarkerDetail(markerId) {
-  //   try {
-  //     const resp = await this.apiClient.get(${API_ENDPOINTS.markers.detail}
-  //     );
-  //     console.debug("marker!!!:", resp);
-  //     this.storeService.updateStore("addMarker", resp.data);
-  //   } catch (error) {
-  //     console.error("Ошибка при получении метки:", error);
-  //   }
-  // }
+  #bindYandexMapEvents() {
+    document.addEventListener(yandexMapCustomEventNames.markClicked, (e) => {
+      this.handleMarkerClick(e);
+    });
+  }
 }
