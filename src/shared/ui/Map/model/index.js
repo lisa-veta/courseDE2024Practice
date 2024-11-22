@@ -1,3 +1,5 @@
+import { Swiper } from "swiper";
+import { Pagination } from "swiper/modules";
 import {
   iconsPresets,
   classNames as defaultClassNames,
@@ -23,16 +25,23 @@ export class YandexMap {
     iconShapeCfg,
   }) {
     this.containerSelector = containerSelector;
+    this.containerMap = document.querySelector(this.containerSelector);
     this.apiKey = apiKey;
     this.center = center;
     this.zoom = zoom;
     this.lang = lang;
     this.apiUrl = apiUrl;
     this.instance = null;
+    this.center = center;
+    this.centerMarker = null;
     this.iconsPresets = iconsPresets;
     this.currentBalloon = null;
+    this.currentMarkerBallonOpen = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
+    this.attrs = {
+      ballon: "data-js-ballon",
+    };
   }
 
   getBallonLayout() {
@@ -54,14 +63,16 @@ export class YandexMap {
   }
 
   getBallonContent({ id, children }) {
+    const linkToCreateSwiper = this.createSwiperForBallon;
     if (window.ymaps) {
       const ballonContent = window.ymaps.templateLayoutFactory.createClass(
-        `<div class="${this.classNames.ballonContent}" data-js-ballon=${id}> 
+        `<div class="${this.classNames.ballonContent}" ${this.attrs.ballon}=${id}> 
             ${children}
         </div>`,
         {
           build: function () {
             ballonContent.superclass.build.call(this);
+            linkToCreateSwiper(id);
             // this.createSwiper(ballonId); TODO: доделать.
           },
           clear: function () {
@@ -74,34 +85,31 @@ export class YandexMap {
     throw new Error("ymaps not ready");
   }
 
-  // createSwiper(ballonId) {
-  //   try {
-  //     const ballonContainer = document.querySelector(
-  //       `[data-js-ballon=${ballonId}`
-  //     );
-  //
-  //     // const swiperEl = ballonContainer.querySelector(".swiper");
-  //     // new Swiper(swiperEl, {
-  //     //   direction: "vertical",
-  //     //   loop: true,
-  //
-  //     //   pagination: {
-  //     //     el: ".swiper-pagination",
-  //     //   },
-  //
-  //     //   navigation: {
-  //     //     nextEl: ".swiper-button-next",
-  //     //     prevEl: ".swiper-button-prev",
-  //     //   },
-  //
-  //     //   scrollbar: {
-  //     //     el: ".swiper-scrollbar",
-  //     //   },
-  //     // });
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }
+  createSwiperForBallon(ballonId) {
+    try {
+      const ballonContainer = document.querySelector(
+        `[data-js-ballon="${ballonId}"]`
+      );
+
+      const swiperEl = ballonContainer.querySelector(".swiper");
+      const swiperPagination =
+        ballonContainer.querySelector(".swiper-pagination");
+
+      if (swiperEl && swiperPagination) {
+        new Swiper(swiperEl, {
+          slidesPerView: 1,
+          direction: "horizontal",
+          modules: [Pagination],
+          pagination: {
+            el: swiperPagination,
+            clickable: true,
+          },
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   getMarkerLayout(typeMarker) {
     if (window.ymaps) {
@@ -129,6 +137,8 @@ export class YandexMap {
         suppressMapOpenBlock: true, // Скрыть кнопку открытия карты на Яндексе
       }
     );
+
+    this.addCenterMarker();
     this.#bindEvents();
     return this.instance;
   }
@@ -195,6 +205,7 @@ export class YandexMap {
       }
       // Обновляем ссылку на текущий открытый балун
       this.currentBalloon = placemark;
+      this.currentMarkerBallonOpen = id;
     });
 
     placemark.events.add("balloonclose", () => {
@@ -206,7 +217,7 @@ export class YandexMap {
 
   handleMarkerClick(id, e) {
     const targetPlacemark = e.get("target");
-
+    if (this.currentBalloon && this.currentMarkerBallonOpen === id) return;
     const customEvent = new CustomEvent(yandexMapCustomEventNames.markClicked, {
       detail: {
         id,
@@ -217,7 +228,7 @@ export class YandexMap {
     document.dispatchEvent(customEvent);
   }
 
-  renderCustomBallon(id, mark, info) {
+  updateBallonContent(id, mark, info) {
     mark.options.set(
       "balloonContentLayout",
       this.getBallonContent({
@@ -229,8 +240,19 @@ export class YandexMap {
 
   getLayoutContentForBallon(info) {
     console.debug("Вот здесь мы начинаем формировать верстку");
+    const slides = info.images
+      .map(
+        (image, index) =>
+          `<div class="swiper-slide"><img src="${image}" alt="${info.title} - Slide ${index + 1}"></div>`
+      )
+      .join("");
+    console.debug(slides);
     return (
-      `        <div class="${this.classNames.info}">` +
+      `<div class="swiper">` +
+      `        <div class="swiper-wrapper"> ${slides} </div>` +
+      `        <div class="swiper-pagination"></div></div>` +
+      `<div class="${this.classNames.contentContainer}">` +
+      `<div class="${this.classNames.info}">` +
       `            <p class="${this.classNames.title}">${info.title}</p>` +
       `            <div class="${this.classNames.typeMark}">` +
       `                ${this.iconsPresets[info.type] ? this.iconsPresets[info.type] : info.type}` +
@@ -245,7 +267,8 @@ export class YandexMap {
       `            </button>` +
       `            <button class="${this.classNames.button}">` +
       `            ${this.iconsPresets["7"]}</button>` +
-      `        </div>`
+      `        </div>` +
+      ` </div>`
     );
   }
 
@@ -268,11 +291,35 @@ export class YandexMap {
       this.currentBalloon.balloon.close();
     }
     this.currentBalloon = null;
+    this.currentMarkerBallonOpen = null;
+  }
+
+  @checkMapInstance
+  centerMapByCords(cords, zoom = 15) {
+    try {
+      this.instance.setCenter(cords, zoom);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   #bindEvents() {
     this.instance.events.add("click", () => {
       this.handleCloseCurrentBallon(); //TODO: а надо ли? надо подумать
     });
+  }
+
+  @checkMapInstance
+  addCenterMarker() {
+    try {
+      const centerMarker = document.createElement("div");
+      centerMarker.className = this.classNames["centerMarker"];
+      centerMarker.innerHTML = this.iconsPresets.centerMarker;
+      this.containerMap.appendChild(centerMarker);
+      this.centerMarker = centerMarker;
+      console.debug(this.centerMarker);
+    } catch (e) {
+      console.error("Ошибка при добавлении центральной метки:", e);
+    }
   }
 }

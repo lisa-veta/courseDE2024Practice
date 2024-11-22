@@ -1,6 +1,6 @@
 export const mockData = {
-  markerDetail: {
-    ["1"]: {
+  markerDetail: [
+    {
       id: "1",
       title: "Al Capone",
       type: "1",
@@ -12,13 +12,12 @@ export const mockData = {
       comment:
         "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
       images: [
-        "/images/image1.png",
-        "/images/image2.png",
-        "/images/image3.png",
-        "/images/image4.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
       ],
     },
-    ["2"]: {
+    {
       id: "2",
       title: "Al Capone 2",
       type: "2",
@@ -28,15 +27,14 @@ export const mockData = {
         street: "ул. Братьев Кашириных 2",
       },
       comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями 2",
+        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
       images: [
-        "/images/image1.png",
-        "/images/image2.png",
-        "/images/image3.png",
-        "/images/image4.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
       ],
     },
-    ["3"]: {
+    {
       id: "3",
       title: "Al Capone 2",
       type: "3",
@@ -46,15 +44,14 @@ export const mockData = {
         street: "ул. Братьев Кашириных 2",
       },
       comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями 2",
+        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
       images: [
-        "/images/image1.png",
-        "/images/image2.png",
-        "/images/image3.png",
-        "/images/image4.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
       ],
     },
-    ["4"]: {
+    {
       id: "4",
       title: "Al Capone 2",
       type: "4",
@@ -64,15 +61,14 @@ export const mockData = {
         street: "ул. Братьев Кашириных 2",
       },
       comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями 2",
+        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
       images: [
-        "/images/image1.png",
-        "/images/image2.png",
-        "/images/image3.png",
-        "/images/image4.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
       ],
     },
-    ["5"]: {
+    {
       id: "5",
       title: "Al Capone 2",
       type: "5",
@@ -82,15 +78,14 @@ export const mockData = {
         street: "ул. Братьев Кашириных 2",
       },
       comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями 2",
+        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
       images: [
-        "/images/image1.png",
-        "/images/image2.png",
-        "/images/image3.png",
-        "/images/image4.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
+        "/assets/markDetail/bar.png",
       ],
     },
-  },
+  ],
   markersList: {
     markers: [
       {
@@ -119,5 +114,39 @@ export const mockData = {
         cords: [56.5, 57.9],
       },
     ],
+  },
+  filerCfg: {
+    inputs: {
+      search: {
+        value: null,
+        isChecked: "null",
+        isDisabled: "null",
+      },
+      bars: {
+        value: null,
+        isChecked: false,
+        isDisabled: false,
+      },
+      restaurant: {
+        value: null,
+        isChecked: false,
+        isDisabled: false,
+      },
+      trk: {
+        value: null,
+        isChecked: false,
+        isDisabled: false,
+      },
+      theatre: {
+        value: null,
+        isChecked: false,
+        isDisabled: false,
+      },
+      cinema: {
+        value: null,
+        isChecked: false,
+        isDisabled: false,
+      },
+    },
   },
 };

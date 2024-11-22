@@ -6,6 +6,7 @@ import {
   TheaterIcon,
   EditIcon,
   DeleteIcon,
+  CenterMapIcon
 } from "#shared/ui/icons/index.js";
 
 export const classNames = {
@@ -21,12 +22,13 @@ export const classNames = {
   description: "yandexMap__description",
   buttons: "yandexMap__buttons",
   button: "yandexMap__button",
+  centerMarker: "yandexMap__centerMarker",
 };
 
 export const iconShapeCfg = {
   type: "Circle",
   coordinates: [0, 0],
-  radius: 88,
+  radius: 50,
 };
 
 export const iconsPresets = {
@@ -37,6 +39,7 @@ export const iconsPresets = {
   ["5"]: TheaterIcon("var(--colorViolet)"),
   ["6"]: EditIcon("var(--colorBlack)"),
   ["7"]: DeleteIcon("var(--colorRed)"),
+  centerMarker: CenterMapIcon({ iconColor: "var(--colorGray)" }),
 };
 
 export const typeNames = {

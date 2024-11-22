@@ -3,6 +3,8 @@
     --yandexMapBallonLayoutWidth: 37.5rem;
     --yandexMapBallonLayoutMinHeight: 10rem;
     --yandexMapBallonContentBgColor: var(--colorWhite);
+    --yandexMapBallonLayoutPd: 2px;
+    position: relative;
 
     &__mark {
         display: flex;
@@ -23,15 +25,29 @@
         background-color: var(--yandexMapBallonContentBgColor);
         translate: calc(-50% + var(--yandexMapWidthPlacemark) / 2) calc(-100% - 2rem);
         border-radius: 2rem;
+        padding: var(--yandexMapBallonLayoutPd);
     }
 
     &__ballonContent {
         background-color: var(--yandexMapBallonContentBgColor);
         width: var(--yandexMapBallonLayoutWidth);
-        height: auto;
-        font-size: 1.75rem;
         border-radius: 2rem;
-        padding: 2.8rem;
+    }
+
+    &__centerMarker {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 4rem;
+        height: 4rem;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    &__contentContainer {
+        font-size: 1.75rem;
+        padding: 2rem;
+        border-radius: 2rem;
         display: flex;
         flex-direction: column;
         gap: 4rem;

@@ -9,14 +9,16 @@
   --switckCircleColor: var(--colorWhite);
   --switchTransition: all 0.4s;
   --switchTypeDisplay: inline-flex;
-  --switchflexDirection: row;
+  --switchflexDirection: row-reverse;
   --switchGap: 1rem;
+  --switchFontSize: 2rem;
   position: relative;
   display: var(--switchTypeDisplay);
   align-items: center;
   flex-direction: var(--switchflexDirection);
   gap: var(--switchGap);
   cursor: pointer;
+  font-size: var(--switchFontSize);
 
   &:has(&__label:empty) {
     --switchGap: 0;
