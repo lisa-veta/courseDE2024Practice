@@ -3,7 +3,7 @@ export const mockData = {
     {
       id: "1",
       title: "Al Capone",
-      type: "1",
+      type: "bars",
       address: {
         city: "Челябинск",
         house: "12a",
@@ -20,7 +20,7 @@ export const mockData = {
     {
       id: "2",
       title: "Al Capone 2",
-      type: "2",
+      type: "restaurant",
       address: {
         city: "Челябинск 2",
         house: "12a",
@@ -37,7 +37,7 @@ export const mockData = {
     {
       id: "3",
       title: "Al Capone 2",
-      type: "3",
+      type: "theatre",
       address: {
         city: "Челябинск 2",
         house: "12a",
@@ -54,7 +54,7 @@ export const mockData = {
     {
       id: "4",
       title: "Al Capone 2",
-      type: "4",
+      type: "cinema",
       address: {
         city: "Челябинск 2",
         house: "12a",
@@ -71,7 +71,7 @@ export const mockData = {
     {
       id: "5",
       title: "Al Capone 2",
-      type: "5",
+      type: "club",
       address: {
         city: "Челябинск 2",
         house: "12a",
@@ -90,27 +90,27 @@ export const mockData = {
     markers: [
       {
         id: "1",
-        type: "1",
+        type: "bars",
         cords: [52.5, 57.9],
       },
       {
         id: "2",
-        type: "2",
+        type: "restaurant",
         cords: [53.5, 57.9],
       },
       {
         id: "3",
-        type: "3",
+        type: "theatre",
         cords: [54.5, 57.9],
       },
       {
         id: "4",
-        type: "4",
+        type: "cinema",
         cords: [55.5, 57.9],
       },
       {
         id: "5",
-        type: "5",
+        type: "club",
         cords: [56.5, 57.9],
       },
     ],
@@ -119,8 +119,8 @@ export const mockData = {
     inputs: {
       search: {
         value: null,
-        isChecked: "null",
-        isDisabled: "null",
+        isChecked: true,
+        isDisabled: false,
       },
       bars: {
         value: null,
@@ -129,17 +129,17 @@ export const mockData = {
       },
       restaurant: {
         value: null,
-        isChecked: false,
+        isChecked: true,
         isDisabled: false,
       },
-      trk: {
+      club: {
         value: null,
-        isChecked: false,
+        isChecked: true,
         isDisabled: false,
       },
       theatre: {
         value: null,
-        isChecked: false,
+        isChecked: true,
         isDisabled: false,
       },
       cinema: {

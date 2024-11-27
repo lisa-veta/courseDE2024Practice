@@ -35,8 +35,6 @@ export class YandexMap {
     this.center = center;
     this.centerMarker = null;
     this.iconsPresets = iconsPresets;
-    this.currentBalloon = null;
-    this.currentMarkerBallonOpen = null;
     this.classNames = classNames ?? defaultClassNames;
     this.iconShapeCfg = iconShapeCfg ?? defaultIconShapeCfg;
     this.attrs = {
@@ -191,25 +189,15 @@ export class YandexMap {
         hasBalloon: true,
         iconLayout: this.getMarkerLayout(typeMarker),
         iconShape: this.iconShapeCfg,
+        hideIconOnBalloonOpen: false,
       }
     );
 
     placemark.events.add("click", (event) => {
-      if (onClick && typeof onClick === "function") onClick(id, event);
-    });
-
-    placemark.events.add("balloonopen", () => {
-      // Если на карте уже открыт балун, закрываем его
-      if (this.currentBalloon) {
-        this.currentBalloon.balloon.close();
+      if (this.instance.balloon.isOpen()) {
+        return;
       }
-      // Обновляем ссылку на текущий открытый балун
-      this.currentBalloon = placemark;
-      this.currentMarkerBallonOpen = id;
-    });
-
-    placemark.events.add("balloonclose", () => {
-      this.currentBalloon = null;
+      if (onClick && typeof onClick === "function") onClick(id, event);
     });
 
     this.instance.geoObjects.add(placemark);
@@ -274,6 +262,7 @@ export class YandexMap {
 
   @checkMapInstance
   renderMarks(marks) {
+    this.clearMap(); //очистка перед рендером
     marks.forEach((mark) => {
       this.addMark({
         id: mark.id,
@@ -321,5 +310,10 @@ export class YandexMap {
     } catch (e) {
       console.error("Ошибка при добавлении центральной метки:", e);
     }
+  }
+
+  @checkMapInstance
+  clearMap() {
+    this.instance.geoObjects.removeAll();
   }
 }

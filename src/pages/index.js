@@ -1,3 +1,5 @@
+import { MapWindow } from "#features/MapWindow/index.js";
+import { PlaceSwitchGroup } from "#features/PlaceSwitchGroup/index.js";
 import { Button } from "#shared/ui/Button/index.js";
 import { ChoiceElem } from "#shared/ui/ChoiceElem/index";
 import {
@@ -10,7 +12,6 @@ import {
   TheaterIcon,
 } from "#shared/ui/icons/index.js";
 import { Switch } from "#shared/ui/Switch/index";
-
 /**
  * import {
  *   BarIcon,
@@ -34,6 +35,7 @@ const IndexPage = () => `
         <h1>Welcome to the Home Page</h1>
       </header>
       <main>
+         <input type="text" />
         <p>Hello world!</p>
         <div>
         ${Button({ text: "Да", iconSlot: CheckIcon(), extraClasses: ["btn--isGreenIcon"] })}
@@ -98,7 +100,17 @@ const IndexPage = () => `
           },
         })}
         </div>
+      
+      ${MapWindow({
+        switches: [
+          { label: "Бары" },
+          { label: "Кино" },
+          { label: "Рестораны" },
+        ],
+      })}
+      ${PlaceSwitchGroup()}
       <div id="map1" class="yandexMap" style="width: 800px; aspect-ratio: 1 / 1"></div>
+       ${Switch({ label: "привет мир" })}
       </main>
     </body>
   </html>
