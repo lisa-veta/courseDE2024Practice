@@ -6,8 +6,8 @@ import {
   TheaterIcon,
   EditIcon,
   DeleteIcon,
-  CenterMapIcon
-} from "#shared/ui/icons/index.js";
+  CenterMapIcon,
+} from "#shared/ui/Icons/index.js";
 
 export const classNames = {
   ballonContent: "yandexMap__ballonContent",
@@ -32,22 +32,22 @@ export const iconShapeCfg = {
 };
 
 export const iconsPresets = {
-  ["1"]: BarIcon("var(--colorRed)"),
-  ["2"]: CinemaIcon("var(--colorLimeGreen)"),
-  ["3"]: NightclubIcon("var(--colorBlue)"),
-  ["4"]: RestaurantIcon("var(--colorOrange)"),
-  ["5"]: TheaterIcon("var(--colorViolet)"),
+  ["bars"]: BarIcon("var(--colorRed)"),
+  ["cinema"]: CinemaIcon("var(--colorLimeGreen)"),
+  ["club"]: NightclubIcon("var(--colorBlue)"),
+  ["restaurant"]: RestaurantIcon("var(--colorOrange)"),
+  ["theatre"]: TheaterIcon("var(--colorViolet)"),
   ["6"]: EditIcon("var(--colorBlack)"),
   ["7"]: DeleteIcon("var(--colorRed)"),
   centerMarker: CenterMapIcon({ iconColor: "var(--colorGray)" }),
 };
 
 export const typeNames = {
-  ["1"]: "Бар",
-  ["2"]: "Кино",
-  ["3"]: "Ночной клуб",
-  ["4"]: "Ресторан",
-  ["5"]: "Театр",
+  ["bars"]: "Бар",
+  ["cinema"]: "Кино",
+  ["club"]: "Ночной клуб",
+  ["restaurant"]: "Ресторан",
+  ["theatre"]: "Театр",
 };
 
 export const yandexMapCustomEventNames = {
