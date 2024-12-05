@@ -124,7 +124,7 @@ export const mockData = {
       },
       bars: {
         value: null,
-        isChecked: false,
+        isChecked: true,
         isDisabled: false,
       },
       restaurant: {
@@ -144,7 +144,7 @@ export const mockData = {
       },
       cinema: {
         value: null,
-        isChecked: false,
+        isChecked: true,
         isDisabled: false,
       },
     },

@@ -9,6 +9,8 @@ import {
 } from "../config/constants.js";
 import { checkMapInstance } from "../config/lib/checkMapInstance.js";
 import { getExternalScript } from "#shared/lib/utils/getExternalScript.js";
+import { DeleteMarkBtn } from "#features/Marks/DeleteMark/index.js";
+import { UpdateMarkBtn } from "#features/Marks/UpdateMark/index.js";
 
 /**
  *
@@ -226,8 +228,8 @@ export class YandexMap {
     );
   }
 
-  getLayoutContentForBallon(info) {
-    console.debug("Вот здесь мы начинаем формировать верстку");
+  getLayoutContentForBallon(id, info) {
+    console.debug("Вот здесь мы начинаем формировать верстку", info);
     const slides = info.images
       .map(
         (image, index) =>
@@ -250,11 +252,8 @@ export class YandexMap {
       `        </div>` +
       `        <p class="${this.classNames.description}">${info.comment}</p>` +
       `        <div class="${this.classNames.buttons}">` +
-      `            <button class="${this.classNames.button}">` +
-      `                 ${this.iconsPresets["6"]}Редактировать` +
-      `            </button>` +
-      `            <button class="${this.classNames.button}">` +
-      `            ${this.iconsPresets["7"]}</button>` +
+      `            ${UpdateMarkBtn({ markInfo: info })}` +
+      `            ${DeleteMarkBtn({ markId: id })}` +
       `        </div>` +
       ` </div>`
     );

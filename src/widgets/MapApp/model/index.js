@@ -29,11 +29,11 @@ export class MapApp {
     });
 
     this.filterManager.applyFilters(this.storeService.getFilters());
-    this.loadAndUpdateFilters(); //подгружаем инфу по конфигу фильтров
+    this.loadAndUpdateFilters();
     this.yandexMap
       .initMap()
       .then(async () => {
-        this.yandexMap.renderMarks(this.getFilteredMarkers()); //Рендерим метки из стора по фильтрам
+        this.yandexMap.renderMarks(this.getFilteredMarkers());
         const marks = await this.getMarkers();
         this.storeService.updateStore("setMarkers", marks);
       })
@@ -156,7 +156,9 @@ export class MapApp {
       const res = await this.apiClient.get(API_ENDPOINTS.markers.detail, {
         id: id,
       });
+      console.debug("ТИИИППП", typeof res.data.find((item) => item.id === id));
       const info = this.yandexMap.getLayoutContentForBallon(
+        id,
         res.data.find((item) => item.id === id) //пока не работает mock
       );
       this.yandexMap.updateBallonContent(id, mark, info);

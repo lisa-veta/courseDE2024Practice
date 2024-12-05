@@ -7,11 +7,11 @@ import { handlers } from "./index.js";
  */
 export async function getMocks() {
   switch (process.env.NODE_ENV) {
-    case "development": // `development` mode
+    case "development": // `development` model
       return await worker.start({
         onUnhandledRequest: "bypass",
       });
-    default: // `production` or `test` mode
+    default: // `production` or `test` model
       return Promise.resolve();
   }
 }

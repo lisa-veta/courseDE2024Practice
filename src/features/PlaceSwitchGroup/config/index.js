@@ -12,7 +12,7 @@ export const switchConfigDefault = [
   {
     label: "Бары",
     name: "bars",
-    checked: false,
+    checked: true,
     dataJsFilterItem: "bars",
     dataJsFilterParentName: "marks",
   },
@@ -33,7 +33,7 @@ export const switchConfigDefault = [
   {
     label: "Кино",
     name: "cinema",
-    checked: false,
+    checked: true,
     dataJsFilterItem: "cinema",
     dataJsFilterParentName: "marks",
   },
