@@ -6,7 +6,8 @@ import {
   NightclubIcon,
   TheaterIcon,
   BarIcon,
-  CheckIcon,
+  PhotoIcon,
+  SaveIcon,
 } from "#shared/ui/Icons/index";
 
 /**
@@ -19,79 +20,117 @@ export const getUpdateMarkModalContent = ({
   iconColor = "var(--colorBlack)",
 }) => {
   return `<div class="updateModalContent">
-  <form class="updateModalContent__form" action="${url}" method="${method}">
+  <form class="updateModalContent__form" data-js-form=${JSON.stringify({ url, method, showModalAfterSuccess: "#modalSuccess" })}>
     <h3 class="updateModalContent__title">Редактировать метку</h3>
-    <p>${markInfo.title}</p>
-    <div>
-      <label>Комментарий пользователя
-        <input type="comment" value="${markInfo.comment}" />
-      </label>
-      ${ChoiceElem({
-        extraAttrs: [
-          {
-            name: "data-js-update-mark-info-select-type",
-            value: markInfo.id,
-          },
-        ],
-        cfg: {
-          preset: "default",
-          itemSelectText: "",
-          searchEnabled: false,
-          choices: [
+    <p>${markInfo.address.street}, ${markInfo.address.house}, ${markInfo.address.city}</p>
+    <div class="updateModalContent__pairedElements">
+          <p class="updateModalContent__firstElem">Тип метки</p>
+          <div class="updateModalContent__secondElem">
+           ${ChoiceElem({
+          extraAttrs: [
             {
-              value: "Бaр",
-              label: "Бар",
-              selected: markInfo.type === "bars",
-              customProperties: {
-                icon: BarIcon("var(--colorRed)"),
-              },
+              name: "data-js-update-mark-info-select-type",
+              value: markInfo.id,
             },
             {
-              value: "Ресторан",
-              label: "Ресторан",
-              selected: markInfo.type === "restaurant",
-              customProperties: {
-                icon: RestaurantIcon("var(--colorOrange)"),
-              },
-            },
-            {
-              value: "Ночной клуб",
-              label: "Ночной клуб",
-              selected: markInfo.type === "trk",
-              customProperties: {
-                icon: NightclubIcon("var(--colorBlue)"),
-              },
-            },
-            {
-              value: "Театр",
-              label: "Театр",
-              selected: markInfo.type === "theatre",
-              customProperties: {
-                icon: TheaterIcon("var(--colorViolet)"),
-              },
-            },
-            {
-              value: "Кино",
-              label: "Кино",
-              selected: markInfo.type === "cinema",
-              customProperties: {
-                icon: CinemaIcon("var(--colorLimeGreen)"),
-              },
+              name: "name",
+              value: "typeMark",
             },
           ],
-        },
-      })}
-      ${Button({
-        text: "Сохранить",
-        extraAttrs: [
-          {
-            name: "type",
-            value: "submit",
+          cfg: {
+            preset: "default",
+            itemSelectText: "",
+            searchEnabled: false,
+            choices: [
+              {
+                value: "Бaр",
+                label: "Бар",
+                selected: markInfo.type === "bars",
+                customProperties: {
+                  icon: BarIcon("var(--colorRed)"),
+                },
+              },
+              {
+                value: "Ресторан",
+                label: "Ресторан",
+                selected: markInfo.type === "restaurant",
+                customProperties: {
+                  icon: RestaurantIcon("var(--colorOrange)"),
+                },
+              },
+              {
+                value: "Ночной клуб",
+                label: "Ночной клуб",
+                selected: markInfo.type === "trk",
+                customProperties: {
+                  icon: NightclubIcon("var(--colorBlue)"),
+                },
+              },
+              {
+                value: "Театр",
+                label: "Театр",
+                selected: markInfo.type === "theatre",
+                customProperties: {
+                  icon: TheaterIcon("var(--colorViolet)"),
+                },
+              },
+              {
+                value: "Кино",
+                label: "Кино",
+                selected: markInfo.type === "cinema",
+                customProperties: {
+                  icon: CinemaIcon("var(--colorLimeGreen)"),
+                },
+              },
+            ],
           },
-        ],
-        iconSlot: CheckIcon("var(--colorGreenLight)"),
-      })}
+        })}
+      </div>
     </div>
+    <div class="updateModalContent__pairedElements">
+      <p class="updateModalContent__firstElem">Комментарий пользователя</p>
+      <label class="updateModalContent__secondElem">
+        <textarea class="updateModalContent__input" >${markInfo.comment}</textarea>
+      </label>
+    </div>
+    
+    <div class="updateModalContent__pairedElements">
+      <p class="updateModalContent__firstElem">Фотографии</p>
+      <div class="updateModalContent__secondElem">
+        <div class="updateModalContent__photo"></div>
+        <div class="updateModalContent__photo"></div>
+        <div class="updateModalContent__photo"></div>
+      </div>
+    </div>
+    
+    <div class="updateModalContent__pairedElements">
+      <p class="updateModalContent__firstElem">Добавить фото</p>
+      <div class="updateModalContent__secondElem">
+        <div class="updateModalContent__columnElem">
+          <div>
+                  ${PhotoIcon({iconColor:"var(--colorBlack)", fillOpacity: "0.4"})}
+          </div>
+          <p class="updateModalContent__text">Перетащите файл в эту область</p>
+          <p class="updateModalContent__text">.jpg, .png, bmp, до 5 Мб</p>
+        </div>
+      </div>
+    </div>
+      <div class="updateModalContent__btns">
+       ${Button({
+    text: "Отменить",
+    extraClasses: [ "btn--isRedText" ],
+  })}
+       ${Button({
+    text: "Сохранить",
+    extraAttrs: [
+      {
+        name: "type",
+        value: "submit",
+      },
+    ],
+    iconSlot: SaveIcon("var(--colorBlack)"),
+  })}
+  </div>
   </form>
   </div>`;
 };

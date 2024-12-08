@@ -19,15 +19,14 @@ export const mockData = {
     },
     {
       id: "2",
-      title: "Al Capone 2",
+      title: "Ресторан",
       type: "restaurant",
       address: {
-        city: "Челябинск 2",
+        city: "Челябинск",
         house: "12a",
-        street: "ул. Братьев Кашириных 2",
+        street: "ул. Молодогвардейцев",
       },
-      comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
+      comment: "Ресторан с вкусной едой",
       images: [
         "/assets/markDetail/bar.png",
         "/assets/markDetail/bar.png",
@@ -36,15 +35,14 @@ export const mockData = {
     },
     {
       id: "3",
-      title: "Al Capone 2",
+      title: "Al Capone 3",
       type: "theatre",
       address: {
-        city: "Челябинск 2",
+        city: "Челябинск",
         house: "12a",
-        street: "ул. Братьев Кашириных 2",
+        street: "пр. Победы",
       },
-      comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
+      comment: "Прекрасный театр, с известными постановками",
       images: [
         "/assets/markDetail/bar.png",
         "/assets/markDetail/bar.png",
@@ -53,15 +51,14 @@ export const mockData = {
     },
     {
       id: "4",
-      title: "Al Capone 2",
+      title: "Al Capone 4",
       type: "cinema",
       address: {
-        city: "Челябинск 2",
+        city: "Челябинск",
         house: "12a",
-        street: "ул. Братьев Кашириных 2",
+        street: "ул. Братьев Кашириных",
       },
-      comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
+      comment: "Кинотеатр с мягкими креслами",
       images: [
         "/assets/markDetail/bar.png",
         "/assets/markDetail/bar.png",
@@ -70,15 +67,14 @@ export const mockData = {
     },
     {
       id: "5",
-      title: "Al Capone 2",
+      title: "Al Capone 5",
       type: "club",
       address: {
-        city: "Челябинск 2",
+        city: "Челябинск",
         house: "12a",
-        street: "ул. Братьев Кашириных 2",
+        street: "ул. Братьев Кашириных",
       },
-      comment:
-        "Хороший бар и караоке, по средам у них специальные акции с коктейлями",
+      comment: "Ночной клуб открывается с 21:00",
       images: [
         "/assets/markDetail/bar.png",
         "/assets/markDetail/bar.png",

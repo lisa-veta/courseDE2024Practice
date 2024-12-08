@@ -20,7 +20,7 @@ export class MapApp {
       apiKey: "ebf7d794-539b-460a-b8d5-68c3b9f6df05",
       lang: "ru_RU",
       center: [54.5, 57.9],
-      zoom: 10,
+      zoom: 6,
     });
 
     this.filterManager = new FilterManager({
@@ -106,13 +106,6 @@ export class MapApp {
 
   handleCenterMapByAddress(address) {
     console.debug(address, "address");
-    //TODO: как-то проверять что yandexMap и переписать на apiClient (добавить параметр ingoreBaseUrl)
-    // this.apiClient.get(this.apiGeoUrl, {
-    //   apikey: this.apiKey,
-    //   geocode: encodeURIComponent(address),
-    //   format: "json",
-    // });
-
     fetch(
       `${this.apiGeoUrl}=${this.apiKey}&geocode=${encodeURIComponent(address)}&format=json`
     )

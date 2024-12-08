@@ -1,20 +1,83 @@
 .updateModalContent {
     --updateModalContentMinWidth: 57rem;
+    --updateModalContentBorderRadius: 2rem;
+    --updateModalContentColor: black;
+    --updateModalContentFontSize: 1.75rem;
+    --updateModalContentPadding: 3rem;
+    --updateModalContentWidth: 57rem;
+    --updateModalContentSecondElemWidth: 34rem;
+    --updateModalContentInputBackgroundColor: rgba(240, 240, 240, 1);
+
     min-width: var(--updateModalContentMinWidth);
-    border-radius: 2rem;
-    color: black;
-    font-size: 1.75rem;
+    border-radius: var(--updateModalContentBorderRadius);
+    color: var(--updateModalContentColor);
+    font-size: var(--updateModalContentFontSize);
+
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    padding: var(--updateModalContentPadding);
+    width: var(--updateModalContentWidth);
 
     &__form {
         display: flex;
         flex-direction: column;
-        gap: 5rem;
+        gap: 3rem;
     }
     &__title {
         font-size: 2.5rem;
         font-weight: 700;
+    }
+    &__btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    &__pairedElements {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+    &__firstElem {
+
+    }
+    &__secondElem {
+        width: var(--updateModalContentSecondElemWidth);
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        color: rgba(0, 0, 0, 0.4);
+    }
+    &__input {
+        width: 34rem;
+        height: 14.5rem;
+        padding: 2rem;
+        box-sizing: border-box;
+        background-color: var(--updateModalContentInputBackgroundColor);
+        border-radius: 1rem;
+        color: var(--colorBlack);
+    }
+    &__photo {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 1.5rem;
+        background-color: var(--updateModalContentInputBackgroundColor);
+    }
+    &__columnElem{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--colorGrayLight);
+        border-radius: 1rem;
+        padding: 2rem;
+    }
+    &__text {
+        font-size: 1.5rem;
+        font-weight: 400;
     }
 }

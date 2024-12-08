@@ -11,5 +11,8 @@ export const DeleteMarkBtn = ({
   Button({
     text: "",
     iconSlot: DeleteIcon(iconColor),
-    extraAttrs: [{ name: "data-js-delete-mark-btn", value: markId }],
+    extraAttrs: [{ name: "data-js-delete-mark-btn", value: markId }, {
+      name: "type",
+      value: "submit",
+    },],
   });

@@ -31,4 +31,9 @@ export const handlers = [
     endpoint: API_ENDPOINTS.markers.delete,
     data: {},
   }),
+  getResponseMock({
+    type: "POST",
+    endpoint: API_ENDPOINTS.markers.update,
+    data: {},
+  }),
 ];

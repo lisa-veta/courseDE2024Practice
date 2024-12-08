@@ -14,7 +14,6 @@ export const PlaceSwitchGroup = ({
   extraAttrs = [],
   switchConfig = switchConfigDefault,
 } = {}) => {
-  // Рендерим каждый Switch по конфигу
   const switchElements = switchConfig
     .map(
       ({ label, name, checked, dataJsFilterItem, dataJsFilterParentName }) => {
@@ -35,8 +34,10 @@ export const PlaceSwitchGroup = ({
     .join(""); // Собираем все элементы в одну строку
   return `
     <div class="placeSwitchGroup ${extraClasses.join(" ")}" ${getGeneratedAttrs(extraAttrs)}>
-      <div data-js-filter="marks">
-        <input type="text" name="search"  data-js-filter-item="search" data-js-filter-parent-name="marks"/>
+      <div class="placeSwitchGroup__items" data-js-filter="marks">
+        <label>
+          <input class="placeSwitchGroup__input" type="text" name="search" placeholder="Введите адрес" data-js-filter-item="search" data-js-filter-parent-name="marks"/>
+        </label>
         ${switchElements}
       </div>
     </div>
